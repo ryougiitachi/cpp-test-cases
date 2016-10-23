@@ -20,5 +20,8 @@ TestSingleInheritLvl1::~TestSingleInheritLvl1() {
 	cout << "There is TestSingleInheritLvl1 destructing " << this << endl;
 }
 
+int TestSingleInheritLvl1::attack() {
+	return -1;
+}
 } /* namespace itachi */
 

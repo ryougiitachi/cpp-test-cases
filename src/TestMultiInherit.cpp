@@ -48,12 +48,20 @@ TestMultiInheritLvl2B::~TestMultiInheritLvl2B() {
 	cout << "The class TestMultiInheritLvl2B is destructing at " << this << endl;
 }
 
+void TestMultiInheritLvl2B::attack() {
+	cout << "TestMultiInheritLvl2B is attacking. " << endl;
+}
+
 TestMultiInheritLvl2C::TestMultiInheritLvl2C() {
 	cout << "The class TestMultiInheritLvl2C is constructing at " << this << endl;
 }
 
 TestMultiInheritLvl2C::~TestMultiInheritLvl2C() {
 	cout << "The class TestMultiInheritLvl2C is destructing at " << this << endl;
+}
+
+void TestMultiInheritLvl2C::attack() {
+	cout << "TestMultiInheritLvl2C is attacking. " << endl;
 }
 
 TestMultiInheritLvl3::TestMultiInheritLvl3() {

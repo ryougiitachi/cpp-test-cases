@@ -14,6 +14,7 @@ class TestSingleInheritLvl1 {
 public:
 	TestSingleInheritLvl1();
 	virtual ~TestSingleInheritLvl1();
+	virtual int attack();
 };
 
 } /* namespace itachi */

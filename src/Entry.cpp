@@ -45,21 +45,13 @@ int main(int argc, char **argv) {
 	fileTest.write((char *)testing, sizeof(TestingClass));
 	fileTest.close();
 	delete testing;
-	cout << "The sizeof of TestingClass is " << sizeof(TestingClass)
-			<< " " << sizeof(TestingClass*) << endl; // prints !!!Hello World!!!
-	cout << "The sizeof of TestingEmpty is " << sizeof(TestingEmpty)
-			<< " " << sizeof(TestingEmpty*) << endl;
-	cout << "The size of int is " << sizeof(int) << endl;
-	cout << "The size of long is " << sizeof(long) << endl;
-	cout << "The size of long long is " << sizeof(long long) << endl;
-	cout << "The size of long long int is " << sizeof(long long int) << endl;
-	cout << "The size of ptrdiff_t is " << sizeof(ptrdiff_t) << endl;
-
-	testing = new TestingClass[8];
-	delete[] testing;
-
-	TestingClass::testSingleInherit();
-	TestingClass::testMultiInherit();
+	
+//	TestingClass::testBasicDataType();
+//	TestingClass::testNewDelete();
+//	TestingClass::testSingleInherit();
+//	TestingClass::testMultiInherit();
+//	TestingClass::testVirSingleInherit();
+	TestingClass::testVirMultiInherit();
 
 	return 0;
 }

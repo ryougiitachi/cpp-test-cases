@@ -34,12 +34,14 @@ class TestMultiInheritLvl2B: public TestMultiInheritLvl1 {
 public:
 	TestMultiInheritLvl2B();
 	virtual ~TestMultiInheritLvl2B();
+	void attack();
 };
 
 class TestMultiInheritLvl2C: public TestMultiInheritLvl1 {
 public:
 	TestMultiInheritLvl2C();
 	virtual ~TestMultiInheritLvl2C();
+	void attack();
 };
 
 //TestMultiInheritLvl1 can't be direct base for TestMultiInheritLvl3 due to all the

@@ -71,10 +71,18 @@ public:
 	virtual int run() {return 0;}
 
 	virtual int attack() {return 0;}
+	
+	static void testBasicDataType();
+	
+	static void testNewDelete();
 
 	static void testSingleInherit();
 
 	static void testMultiInherit();
+	
+	static void testVirSingleInherit();
+	
+	static void testVirMultiInherit();
 };
 
 #endif /* TESTINGCLASS_H_ */
