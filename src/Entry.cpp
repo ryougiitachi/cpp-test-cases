@@ -50,8 +50,8 @@ int main(int argc, char **argv) {
 //	TestingClass::testNewDelete();
 //	TestingClass::testSingleInherit();
 //	TestingClass::testMultiInherit();
-//	TestingClass::testVirSingleInherit();
-	TestingClass::testVirMultiInherit();
+	TestingClass::testVirSingleInherit();
+//	TestingClass::testVirMultiInherit();
 
 	return 0;
 }

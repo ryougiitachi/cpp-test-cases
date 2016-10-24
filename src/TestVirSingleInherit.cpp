@@ -15,6 +15,9 @@ namespace itachi
 	
 	TestVirSingleInheritLvl1::TestVirSingleInheritLvl1 ()
 	{
+		this->id = -1;
+		this->protectedNumber = -1;
+		this->publicNumber = -1;
 		cout << "There is TestVirSingleInheritLvl1 constructing " << this << endl;
 	}
 
@@ -25,6 +28,9 @@ namespace itachi
 	
 	TestVirSingleInheritLvl2::TestVirSingleInheritLvl2 ()
 	{
+		this->id = -1;
+		this->protectedNumber = -1;
+		this->publicNumber = -1;
 		cout << "There is TestVirSingleInheritLvl2 constructing " << this << endl;
 	}
 
