@@ -8,9 +8,15 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
+#include <boost/regex.hpp>
 #include "TestingClass.h"
 #include "TestingEmpty.h"
+#include "TestingEmpty.h"		//no error
+#include "Entry.h"
+
 using namespace std;
+using namespace boost;
 
 typedef void (TestingClass::*FPsetGeneralID)(int);
 typedef int (TestingClass::*FPrun)(void);
@@ -50,8 +56,62 @@ int main(int argc, char **argv) {
 //	TestingClass::testNewDelete();
 //	TestingClass::testSingleInherit();
 //	TestingClass::testMultiInherit();
-	TestingClass::testVirSingleInherit();
+//	TestingClass::testVirSingleInherit();
 //	TestingClass::testVirMultiInherit();
+	manageTestingCases(argc, argv);
 
+	return 0;
+}
+
+int manageTestingCases(int argc, char **argv)
+{
+	if(argc <= 1)
+	{
+		cout << "Invalid arguments. " << endl;
+		return -1;
+	}
+
+	regex pattern("'?(\\d+)'?");
+	cmatch what;//smatch what; it is also OK.
+
+	for(int i=1; i < argc; ++i)
+	{
+		if(!regex_search(argv[i], what, pattern))
+		{
+			cout << "Invalid arguments: " << argv[i] << endl;
+			continue;//no matching
+		}
+		else
+		{
+//			cout << "The size of what is " << what.size() << endl;
+//			cout << "The what 0 is " << what[0].str() << endl;
+//			cout << "The what 1 is " << what[1].str() << endl;
+
+		}
+		switch(atoi(what[1].str().data()))//string::const char *
+		{
+		case 1:
+			TestingClass::testBasicDataType();
+			break;
+		case 2:
+			TestingClass::testNewDelete();
+			break;
+		case 3:
+			TestingClass::testSingleInherit();
+			break;
+		case 4:
+			TestingClass::testMultiInherit();
+			break;
+		case 5:
+			TestingClass::testVirSingleInherit();
+			break;
+		case 6:
+			TestingClass::testVirMultiInherit();
+			break;
+		default:
+			cout << "Invalid arguments: " << argv[i] << endl;
+			break;
+		}
+	}
 	return 0;
 }
