@@ -52,12 +52,6 @@ int main(int argc, char **argv) {
 	fileTest.close();
 	delete testing;
 	
-//	TestingClass::testBasicDataType();
-//	TestingClass::testNewDelete();
-//	TestingClass::testSingleInherit();
-//	TestingClass::testMultiInherit();
-//	TestingClass::testVirSingleInherit();
-//	TestingClass::testVirMultiInherit();
 	manageTestingCases(argc, argv);
 
 	return 0;

@@ -51,6 +51,21 @@ void TestingClass::testBasicDataType() {
 	cout << "The size of long long is " << sizeof(long long) << endl;
 	cout << "The size of long long int is " << sizeof(long long int) << endl;
 	cout << "The size of ptrdiff_t is " << sizeof(ptrdiff_t) << endl;
+
+	const char * szConstCharX = "const char *";
+	char const * szCharConstX = "char const *";
+	char * const szCharXConst = "char * const";
+//	const char const * szConstCharConstX = "const char const *";//duplicate 'const'
+	const char * const szConstCharXConst = "const char * const";//duplicate 'const'
+//	szConstCharX[0] = '3';//error: assignment of read-only location '* szConstChar'
+	szConstCharX = NULL;//correct
+//	szCharConstX[0] = '3';//error: assignment of read-only location '* szConstChar'
+	szCharConstX = NULL;//correct
+	szCharXConst[0] = '3';//correct
+//	szCharXConst = NULL;// error: assignment of read-only variable 'szCharXConst'
+//	szConstCharXConst[0] = '3';//error: assignment of read-only location '*(const char*)szConstCharXConst'
+//	szConstCharXConst = NULL;//error: assignment of read-only variable 'szConstCharXConst'
+	cout << "const char * szConstChar is " << szConstCharX << endl;
 };
 
 /**
@@ -65,6 +80,7 @@ void TestingClass::testNewDelete() {
 }
 
 /**
+ * 3
  * The function also tests the size of inherited classes. 
  * It is not necessary to add "static" for static member method in definition.
  * */
@@ -73,6 +89,9 @@ void TestingClass::testSingleInherit() {
 	TestSingleInheritLvl1 *p1lvl1, *p1lvl2, *p1lvl3;
 	TestSingleInheritLvl2 *p2lvl3;
 	TestSingleInheritLvl3 *p3lvl3;
+
+	const short *capacities;
+
 	cout << "The size of TestSingleInheritLvl1 is " << sizeof(TestSingleInheritLvl1) << endl;
 	cout << "The size of TestSingleInheritLvl2 is " << sizeof(TestSingleInheritLvl2) << endl;
 	cout << "The size of TestSingleInheritLvl3 is " << sizeof(TestSingleInheritLvl3) << endl;
@@ -107,6 +126,9 @@ void TestingClass::testSingleInherit() {
 	cout << "TestSingleInheritLvl3 is attacking " << p3lvl3->attack() << endl;
 	p2lvl3=NULL;
 	p3lvl3=NULL;
+
+	capacities = p1lvl3->getCapacities();//if no const, error: invalid conversion from 'const short int*' to 'short int*' [-fpermissive]
+	cout << "The address of capacities is " << capacities << endl;
 
 	cout << "Destorying p1lvl1 ... " << endl;
 	delete p1lvl1;p1lvl1=NULL;

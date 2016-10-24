@@ -11,10 +11,16 @@
 namespace itachi {
 
 class TestSingleInheritLvl1 {
+private:
+	short capacities[8];
+public:
+	static const int SINGLE_INHERIT_COUNT_CAPACITIES = 8;
 public:
 	TestSingleInheritLvl1();
 	virtual ~TestSingleInheritLvl1();
 	virtual int attack();
+
+	const short *getCapacities() const;
 };
 
 } /* namespace itachi */
