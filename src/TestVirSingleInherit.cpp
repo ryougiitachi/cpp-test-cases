@@ -25,6 +25,14 @@ namespace itachi
 	{
 		cout << "There is TestVirSingleInheritLvl1 destructing " << this << endl;
 	}
+
+	int TestVirSingleInheritLvl1::getProtectedNumber() const {
+		return protectedNumber;
+	}
+
+	void TestVirSingleInheritLvl1::setProtectedNumber(int protectedNumber) {
+		this->protectedNumber = protectedNumber;
+	}
 	
 	TestVirSingleInheritLvl2::TestVirSingleInheritLvl2 ()
 	{
@@ -37,6 +45,14 @@ namespace itachi
 	TestVirSingleInheritLvl2::~TestVirSingleInheritLvl2 ()
 	{
 		cout << "There is TestVirSingleInheritLvl2 destructing " << this << endl;
+	}
+
+	int TestVirSingleInheritLvl2::getProtectedNumber() const {
+		return protectedNumber;
+	}
+
+	void TestVirSingleInheritLvl2::setProtectedNumber(int protectedNumber) {
+		this->protectedNumber = protectedNumber;
 	}
 	
 	TestVirSingleInheritLvl3::TestVirSingleInheritLvl3 ()
