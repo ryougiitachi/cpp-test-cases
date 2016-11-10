@@ -72,17 +72,55 @@ public:
 
 	virtual int attack() {return 0;}
 	
+	/**
+	 * 1
+	 * */
 	static void testBasicDataType();
-	
+
+	/**
+	 * 2
+	 * */
 	static void testNewDelete();
 
+	/**
+	 * 3
+	 * */
 	static void testSingleInherit();
 
+	/**
+	 * 4
+	 * */
 	static void testMultiInherit();
-	
+
+	/**
+	 * 5
+	 * */
 	static void testVirSingleInherit();
-	
+
+	/**
+	 * 6
+	 * */
 	static void testVirMultiInherit();
+
+	/**
+	 * 7
+	 * */
+	static void testArgumentsByCRegex(int argc, char **argv);
+
+	/**
+	 * 8
+	 * */
+	static void testArgumentsByCppRegex(int argc, char **argv);
+
+	/**
+	 * 9
+	 * */
+	static void testArgumentsByBoostRegex(int argc, char **argv);
+
+	/**
+	 * 10
+	 * */
+	static void testCout();
 };
 
 #endif /* TESTINGCLASS_H_ */
