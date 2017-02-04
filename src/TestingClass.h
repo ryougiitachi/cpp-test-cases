@@ -83,6 +83,8 @@ public:
 	static void testVirSingleInherit();
 	
 	static void testVirMultiInherit();
+	
+	static void testConst();
 };
 
 #endif /* TESTINGCLASS_H_ */
