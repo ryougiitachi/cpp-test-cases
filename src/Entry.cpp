@@ -8,15 +8,17 @@
 
 #include <iostream>
 #include <fstream>
+//#include <cregex>	//Non-existing!!
+#include <regex.h>
 #include <cstdlib>
-#include <boost/regex.hpp>
+#include <cstring>
+#include <string>
 #include "TestingClass.h"
 #include "TestingEmpty.h"
 #include "TestingEmpty.h"		//no error
 #include "Entry.h"
 
 using namespace std;
-using namespace boost;
 
 typedef void (TestingClass::*FPsetGeneralID)(int);
 typedef int (TestingClass::*FPrun)(void);
@@ -25,7 +27,6 @@ typedef int (TestingClass::*FPattack)(void);
 int main(int argc, char **argv) {
 	ios::sync_with_stdio(false);
 	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-	cout << "The size of bool is " << sizeof(bool) << endl;
 
 	FPsetGeneralID fpsetGeneralID;
 	FPrun fprun;
@@ -65,24 +66,33 @@ int manageTestingCases(int argc, char **argv)
 		return -1;
 	}
 
-	regex pattern("'?(\\d+)'?");
-	cmatch what;//smatch what; it is also OK.
+	char *szPattern = "'?(\\d+)'?";
+	regmatch_t what[8];
+	regex_t regex;
+	int iExecCode = 0;
+	char szExecCode[16];
+
+	regcomp(&regex, szPattern, REG_EXTENDED);
 
 	for(int i=1; i < argc; ++i)
 	{
-		if(!regex_search(argv[i], what, pattern))
-		{
-			cout << "Invalid arguments: " << argv[i] << endl;
-			continue;//no matching
-		}
-		else
-		{
-//			cout << "The size of what is " << what.size() << endl;
-//			cout << "The what 0 is " << what[0].str() << endl;
-//			cout << "The what 1 is " << what[1].str() << endl;
+		iExecCode = 0;
+		memset(what, 0, sizeof(what));
+		memset(szExecCode, 0, sizeof(szExecCode));
 
+		switch(regexec(&regex, argv[i], 8, what, REG_NOTBOL))
+		{
+		case REG_NOMATCH:
+			cout << "Unparseable arguments: " << argv[i] << endl;
+			continue;
+		case REG_OK:
+			memcpy(szExecCode, argv[i] + what[1].rm_so, what[1].rm_eo - what[0].rm_so);
+			iExecCode = atoi(szExecCode);
+			break;
+		default:
+			break;
 		}
-		switch(atoi(what[1].str().data()))//string::const char *
+		switch(iExecCode)
 		{
 		case 1:
 			TestingClass::testBasicDataType();
@@ -102,10 +112,23 @@ int manageTestingCases(int argc, char **argv)
 		case 6:
 			TestingClass::testVirMultiInherit();
 			break;
+		case 7:
+			TestingClass::testArgumentsByCRegex(argc, argv);
+			break;
+		case 8:
+			TestingClass::testArgumentsByCppRegex(argc, argv);
+			break;
+		case 9:
+			TestingClass::testArgumentsByBoostRegex(argc, argv);
+			break;
+		case 10:
+			TestingClass::testCout();
+			break;
 		default:
-			cout << "Invalid arguments: " << argv[i] << endl;
+			cout << "Unavailable arguments: " << argv[i] << endl;
 			break;
 		}
 	}
+	regfree(&regex);
 	return 0;
 }

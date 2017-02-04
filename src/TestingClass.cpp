@@ -6,6 +6,10 @@
  */
 
 #include <iostream>
+#include <iomanip>
+#include <cstdio>
+#include <regex>
+#include <boost/regex.hpp>
 #include "TestingEmpty.h"
 #include "TestSingleInheritLvl1.h"
 #include "TestSingleInheritLvl2.h"
@@ -46,26 +50,32 @@ void TestingClass::testBasicDataType() {
 			<< " " << sizeof(TestingClass*) << endl; // prints !!!Hello World!!!
 	cout << "The sizeof of TestingEmpty is " << sizeof(TestingEmpty)
 			<< " " << sizeof(TestingEmpty*) << endl;
+	cout << "The size of bool is " << sizeof(bool) << endl;
 	cout << "The size of int is " << sizeof(int) << endl;
 	cout << "The size of long is " << sizeof(long) << endl;
 	cout << "The size of long long is " << sizeof(long long) << endl;
 	cout << "The size of long long int is " << sizeof(long long int) << endl;
 	cout << "The size of ptrdiff_t is " << sizeof(ptrdiff_t) << endl;
 
+	//printf will be after cout ?
+	//mix, sync=false
+	printf("The value of true is %016X\n", true);//0x0000000000000001
+	printf("The value of false is %016X\n", false);//0x0000000000000000
+
 	const char * szConstCharX = "const char *";
 	char const * szCharConstX = "char const *";
-	char * const szCharXConst = "char * const";
+	char * const szCharXConst = "char * const";//"char * const" is constant value
 //	const char const * szConstCharConstX = "const char const *";//duplicate 'const'
 	const char * const szConstCharXConst = "const char * const";//duplicate 'const'
 //	szConstCharX[0] = '3';//error: assignment of read-only location '* szConstChar'
 	szConstCharX = NULL;//correct
 //	szCharConstX[0] = '3';//error: assignment of read-only location '* szConstChar'
 	szCharConstX = NULL;//correct
-	szCharXConst[0] = '3';//correct
+//	szCharXConst[0] = '3';//correct, "char * const" is constant value, so here is runtime error.
 //	szCharXConst = NULL;// error: assignment of read-only variable 'szCharXConst'
 //	szConstCharXConst[0] = '3';//error: assignment of read-only location '*(const char*)szConstCharXConst'
 //	szConstCharXConst = NULL;//error: assignment of read-only variable 'szConstCharXConst'
-	cout << "const char * szConstChar is " << szConstCharX << endl;
+	cout << "const char * szConstChar is " << "NULL" << flush << endl;//szConstCharX
 };
 
 /**
@@ -277,4 +287,106 @@ void TestingClass::testVirMultiInherit() {
 void TestingClass::testConst()
 {
 	const string strTest("This is a test string.");
+}
+
+void TestingClass::testArgumentsByCRegex(int argc, char **argv)
+{
+
+}
+
+/**
+ * C++ Regex is very strange.
+ * */
+void TestingClass::testArgumentsByCppRegex(int argc, char **argv)
+{
+	cout << "testArgumentsByCppRegex" << endl;
+/** ***/
+	if(argc <= 1)
+	{
+		cout << "Invalid arguments. " << endl;
+		return;
+	}
+
+	regex pattern("'?(\\d+)'?", regex_constants::extended);
+	string strArgument;
+	smatch what;//cmatch what; it is also OK.
+
+	for(int i=1; i < argc; ++i)
+	{
+		strArgument.assign(argv[i]);
+		//no compiler error but eclipse error, runtime error
+		if(true)//! regex_match(strArgument, what, pattern)
+		{
+			cout << "Unparseable arguments: " << argv[i] << endl;
+			continue;//no matching
+		}
+		else
+		{
+			cout << "The size of what is " << what.size() << endl;
+			cout << "The what 0 is " << what[0].str() << endl;
+			cout << "The what 1 is " << what[1].str() << endl;
+		}
+	}
+}
+
+void TestingClass::testArgumentsByBoostRegex(int argc, char **argv)
+{
+	cout << "testArgumentsByBoostRegex" << endl;
+
+	if(argc <= 1)
+	{
+		cout << "Invalid arguments. " << endl;
+		return;
+	}
+
+#ifdef BOOST_RE_REGEX_HPP
+	boost::regex pattern("'?(\\d+)'?");
+	boost::cmatch what;//smatch what; it is also OK.
+
+	for(int i=1; i < argc; ++i)
+	{
+		if(!boost::regex_search(argv[i], what, pattern))
+		{
+			cout << "Invalid arguments: " << argv[i] << endl;
+			continue;//no matching
+		}
+		else
+		{
+			cout << "The size of what is " << what.size() << endl;
+			for(auto item : what)
+			{
+				cout << "The what  is " << item.str().data() << endl;//string::const char *
+			}
+		}
+	}
+#endif
+}
+
+void TestingClass::testCout()
+{
+	int i = 123456;
+	cout.setf(ios::showbase);//showbase seems to be like 0x or 0b something.
+	cout.setf(ios::uppercase);//the default value is lowercase.
+	cout << "The value of i is " << i <<endl;
+	cout.unsetf(ios::dec);
+	cout << "The value of i is " << i <<endl;
+	cout.setf(ios::hex);
+	cout << "The value of i is " << i <<endl;
+	cout << "The width of cout is " << cout.width() <<endl;
+	cout << "The fill of cout is " << cout.fill() <<endl;
+	cout.width(16);
+	cout.fill('0');
+	cout << "The value of i is ";
+	cout << i <<endl;
+	cout.width(0);
+	cout.fill(' ');
+	cout.unsetf(ios::hex);
+	cout << "The value of i is " << i <<endl;
+	cout.unsetf(ios::showbase | ios::uppercase);
+
+	cout << setiosflags(ios::showbase | ios::uppercase | ios::hex) << endl;
+	cout << setw(16) << setfill('0') << "The value of i is " << i <<endl;
+	cout << "The value of i is " << setw(16) << setfill('0') << i <<endl;
+	cout << setw(0) << setfill(' ');
+	cout << resetiosflags(ios::showbase | ios::uppercase | ios::hex) << endl;
 }
