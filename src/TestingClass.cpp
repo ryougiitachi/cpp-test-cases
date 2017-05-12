@@ -285,6 +285,10 @@ void TestingClass::testVirMultiInherit() {
 	cout << "Complete destorying all the objects ... " << endl;
 }
 
+void TestingClass::testConst()
+{
+	const string strTest("This is a test string.");
+}
 
 void TestingClass::testArgumentsByCRegex(int argc, char **argv)
 {

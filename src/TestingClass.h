@@ -101,7 +101,8 @@ public:
 	 * 6
 	 * */
 	static void testVirMultiInherit();
-
+	
+	static void testConst();
 	/**
 	 * 7
 	 * */
