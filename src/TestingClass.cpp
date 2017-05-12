@@ -10,6 +10,7 @@
 #include <cstdio>
 #include <regex>
 #include <boost/regex.hpp>
+#include <exception>
 #include "TestingEmpty.h"
 #include "TestSingleInheritLvl1.h"
 #include "TestSingleInheritLvl2.h"
@@ -385,4 +386,36 @@ void TestingClass::testCout()
 	cout << "The value of i is " << setw(16) << setfill('0') << i <<endl;
 	cout << setw(0) << setfill(' ');
 	cout << resetiosflags(ios::showbase | ios::uppercase | ios::hex) << endl;
+}
+
+void TestingClass::testException()
+{
+	int i[8] = {0};
+	char *szTest = "szTest";
+	try
+	{
+		cout << i[7] << szTest << endl;
+//		szTest[0] = '1';
+		if(i[0] == 0)
+		{
+			throw new exception();
+		}
+	}
+	catch(exception& e)//reference
+	{//The application seems to be terminated in an unusual way.
+		cout << "exception reference: " << e.what() << endl;
+	}
+	try
+	{
+		cout << i[7] << szTest << endl;
+//		szTest[0] = '1';
+		if(i[0] == 0)
+		{
+			throw new exception();
+		}
+	}
+	catch(exception& e)//exception* e point error?
+	{
+		cout << "exception point: " << e.what() << endl;
+	}
 }

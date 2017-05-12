@@ -124,6 +124,9 @@ int manageTestingCases(int argc, char **argv)
 		case 10:
 			TestingClass::testCout();
 			break;
+		case 11:
+			TestingClass::testException();
+			break;
 		default:
 			cout << "Unavailable arguments: " << argv[i] << endl;
 			break;
