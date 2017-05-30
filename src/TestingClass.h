@@ -122,6 +122,11 @@ public:
 	 * 10
 	 * */
 	static void testCout();
+
+	/**
+	 * 11
+	 * */
+	static void testException();
 };
 
 #endif /* TESTINGCLASS_H_ */
